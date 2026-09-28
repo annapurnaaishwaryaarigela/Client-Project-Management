@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProjectFlow - Client Project Management</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+
+<div id="authScreen" class="auth-screen">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <div>
+                <h2>ProjectFlow</h2>
+                <span>Client Collaboration Platform</span>
+            </div>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="showAuth('login')">
+                Login
+            </button>
+
+            <button class="auth-tab" onclick="showAuth('register')">
+                Register
+            </button>
+        </div>
+
+        <!-- Login -->
+
+        <form id="loginForm" class="auth-form">
+
+            <h1>Welcome back!</h1>
+            <p>Sign in to manage your projects and team.</p>
+
+            <label>Email</label>
+
+            <div class="input-box">
+                <i class="fa-regular fa-envelope"></i>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    required>
+            </div>
+
+            <label>Password</label>
+
+            <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                    required>
+            </div>
+
+            <button type="submit" class="primary-btn full-btn">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Sign In
+            </button>
+
+            <div class="demo-login">
+                Demo Login: admin@projectflow.com / 123456
+            </div>
+
+        </form>
+
+        <!-- Register -->
+
+        <form id="registerForm" class="auth-form hidden">
+
+            <h1>Create account</h1>
+            <p>Join your project collaboration workspace.</p>
+
+            <label>Full Name</label>
+
+            <div class="input-box">
+                <i class="fa-regular fa-user"></i>
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Your name"
+                    required>
+            </div>
+
+            <label>Email</label>
+
+            <div class="input-box">
+                <i class="fa-regular fa-envelope"></i>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="you@example.com"
+                    required>
+            </div>
+
+            <label>Role</label>
+
+            <select id="registerRole">
+                <option>Project Manager</option>
+                <option>Developer</option>
+                <option>Designer</option>
+                <option>QA</option>
+                <option>Analyst</option>
+                <option>Client</option>
+            </select>
+
+            <label>Password</label>
+
+            <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create password"
+                    required>
+            </div>
+
+            <button type="submit" class="primary-btn full-btn">
+                <i class="fa-solid fa-user-plus"></i>
+                Create Account
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APPLICATION ================= -->
+
+<div id="app" class="app hidden">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <div class="brand-text">
+                <strong>ProjectFlow</strong>
+                <small>Project Management</small>
+            </div>
+
+        </div>
+
+        <div class="workspace-label">
+            WORKSPACE
+        </div>
+
+        <nav>
+
+            <button class="nav-item active" data-page="dashboard">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="projects">
+                <i class="fa-solid fa-folder-open"></i>
+                <span>Projects</span>
+            </button>
+
+            <button class="nav-item" data-page="tasks">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Tasks</span>
+                <span class="nav-count" id="taskNavCount">0</span>
+            </button>
+
+            <button class="nav-item" data-page="kanban">
+                <i class="fa-solid fa-table-columns"></i>
+                <span>Kanban Board</span>
+            </button>
+
+            <button class="nav-item" data-page="milestones">
+                <i class="fa-solid fa-flag-checkered"></i>
+                <span>Milestones</span>
+            </button>
+
+            <button class="nav-item" data-page="time">
+                <i class="fa-solid fa-clock"></i>
+                <span>Time Tracking</span>
+            </button>
+
+            <button class="nav-item" data-page="clients">
+                <i class="fa-solid fa-users"></i>
+                <span>Clients</span>
+            </button>
+
+            <button class="nav-item" data-page="files">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>Files</span>
+            </button>
+
+            <button class="nav-item" data-page="team">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Team</span>
+            </button>
+
+            <button class="nav-item" data-page="reports">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </button>
+
+            <button class="nav-item" data-page="timeline">
+                <i class="fa-solid fa-timeline"></i>
+                <span>Project Timeline</span>
+            </button>
+
+            <div class="sidebar-divider"></div>
+
+            <button class="nav-item" data-page="communication">
+                <i class="fa-regular fa-comments"></i>
+                <span>Client Portal</span>
+            </button>
+
+            <button class="nav-item" data-page="settings">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="storage-box">
+
+                <div class="storage-header">
+                    <span>Storage</span>
+                    <strong>68%</strong>
+                </div>
+
+                <div class="progress">
+                    <div style="width:68%"></div>
+                </div>
+
+                <small>6.8 GB of 10 GB used</small>
+
+            </div>
+
+            <button class="user-mini" onclick="openProfile()">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+                    <strong id="sidebarUserName">Admin User</strong>
+                    <small id="sidebarUserRole">Project Manager</small>
+                </div>
+
+                <i class="fa-solid fa-ellipsis"></i>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <!-- Topbar -->
+
+        <header class="topbar">
+
+            <div class="top-left">
+
+                <button class="mobile-menu" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="breadcrumb">
+                    <span>Workspace</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <strong id="pageTitle">Dashboard</strong>
+                </div>
+
+            </div>
+
+            <div class="top-actions">
+
+                <div class="search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="globalSearch"
+                        placeholder="Search projects, tasks...">
+
+                </div>
+
+                <button
+                    class="icon-btn"
+                    title="Toggle dark mode"
+                    onclick="toggleDarkMode()">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+                <button
+                    class="icon-btn notification-btn"
+                    onclick="openNotifications()">
+
+                    <i class="fa-regular fa-bell"></i>
+                    <span>3</span>
+
+                </button>
+
+                <div class="top-avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <section class="page-container">
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <div id="dashboardPage" class="page active-page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Good evening, Admin!</h1>
+                        <p>Here's what's happening with your projects today.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openProjectModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        New Project
+                    </button>
+
+                </div>
+
+
+                <!-- Statistics -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-folder"></i>
+                        </div>
+
+                        <div>
+                            <span>Active Projects</span>
+                            <h2 id="statProjects">0</h2>
+                            <small class="positive">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                12% this month
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Tasks Completed</span>
+                            <h2 id="statCompleted">0</h2>
+                            <small class="positive">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                8% this week
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+
+                        <div>
+                            <span>Hours Tracked</span>
+                            <h2 id="statHours">0h</h2>
+                            <small>Target: 160h</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+
+                        <div>
+                            <span>Total Revenue</span>
+                            <h2 id="statRevenue">₹0</h2>
+                            <small class="positive">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                15% this month
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <!-- Projects -->
+
+                    <div class="panel project-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Active Projects</h3>
+                                <p>Your current project overview</p>
+                            </div>
+
+                            <button
+                                class="text-btn"
+                                onclick="showPage('projects')">
+
+                                View All
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                        <div id="dashboardProjects"></div>
+
+                    </div>
+
+
+                    <!-- Task Progress -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Task Progress</h3>
+                                <p>Overall team progress</p>
+                            </div>
+
+                            <span class="date-label">
+                                This month
+                            </span>
+
+                        </div>
+
+                        <div class="progress-chart">
+
+                            <div class="donut">
+                                <div>
+                                    <strong id="completionPercent">0%</strong>
+                                    <small>Complete</small>
+                                </div>
+                            </div>
+
+                            <div class="chart-legend">
+
+                                <div>
+                                    <span class="legend-dot completed"></span>
+                                    Completed
+                                    <strong id="completedLegend">0</strong>
+                                </div>
+
+                                <div>
+                                    <span class="legend-dot progress-dot"></span>
+                                    In Progress
+                                    <strong id="progressLegend">0</strong>
+                                </div>
+
+                                <div>
+                                    <span class="legend-dot pending"></span>
+                                    Pending
+                                    <strong id="pendingLegend">0</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom dashboard -->
+
+                <div class="dashboard-grid bottom-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Upcoming Deadlines</h3>
+                                <p>Tasks requiring attention</p>
+                            </div>
+
+                            <button
+                                class="icon-btn small"
+                                onclick="showPage('tasks')">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="upcomingTasks"></div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Team Activity</h3>
+                                <p>Latest workspace activity</p>
+                            </div>
+
+                            <button class="text-btn">
+                                See all
+                            </button>
+
+                        </div>
+
+                        <div id="activityList"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PROJECTS ================= -->
+
+            <div id="projectsPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Projects</h1>
+                        <p>Create, manage and monitor all your projects.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openProjectModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Project
+                    </button>
+
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="filter-group">
+
+                        <button class="filter-btn active" onclick="filterProjects('all',this)">
+                            All
+                        </button>
+
+                        <button class="filter-btn" onclick="filterProjects('In Progress',this)">
+                            In Progress
+                        </button>
+
+                        <button class="filter-btn" onclick="filterProjects('Planning',this)">
+                            Planning
+                        </button>
+
+                        <button class="filter-btn" onclick="filterProjects('Completed',this)">
+                            Completed
+                        </button>
+
+                    </div>
+
+                    <select id="projectSort" onchange="renderProjects()">
+                        <option value="newest">Newest</option>
+                        <option value="budget">Budget</option>
+                        <option value="progress">Progress</option>
+                    </select>
+
+                </div>
+
+                <div id="projectsGrid" class="project-grid"></div>
+
+            </div>
+
+
+            <!-- ================= TASKS ================= -->
+
+            <div id="tasksPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Task Management</h1>
+                        <p>Create, assign and track project tasks.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openTaskModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        New Task
+                    </button>
+
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="filter-group">
+
+                        <button class="filter-btn active" onclick="filterTasks('all',this)">
+                            All
+                        </button>
+
+                        <button class="filter-btn" onclick="filterTasks('To Do',this)">
+                            To Do
+                        </button>
+
+                        <button class="filter-btn" onclick="filterTasks('In Progress',this)">
+                            In Progress
+                        </button>
+
+                        <button class="filter-btn" onclick="filterTasks('Completed',this)">
+                            Completed
+                        </button>
+
+                    </div>
+
+                    <select id="taskPriorityFilter" onchange="renderTasks()">
+                        <option value="all">All priorities</option>
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                </div>
+
+                <div class="panel table-panel">
+
+                    <div class="table-responsive">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Project</th>
+                                    <th>Assignee</th>
+                                    <th>Priority</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tasksTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= KANBAN ================= -->
+
+            <div id="kanbanPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Kanban Board</h1>
+                        <p>Visualize and manage your task workflow.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openTaskModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Task
+                    </button>
+
+                </div>
+
+                <div class="kanban-board">
+
+                    <div class="kanban-column">
+
+                        <div class="kanban-header">
+                            <span>
+                                <i class="fa-regular fa-circle"></i>
+                                To Do
+                            </span>
+                            <strong id="todoCount">0</strong>
+                        </div>
+
+                        <div id="todoColumn" class="kanban-tasks"></div>
+
+                    </div>
+
+
+                    <div class="kanban-column">
+
+                        <div class="kanban-header">
+                            <span>
+                                <i class="fa-solid fa-spinner"></i>
+                                In Progress
+                            </span>
+                            <strong id="doingCount">0</strong>
+                        </div>
+
+                        <div id="doingColumn" class="kanban-tasks"></div>
+
+                    </div>
+
+
+                    <div class="kanban-column">
+
+                        <div class="kanban-header">
+                            <span>
+                                <i class="fa-solid fa-circle-check"></i>
+                                Completed
+                            </span>
+                            <strong id="doneCount">0</strong>
+                        </div>
+
+                        <div id="doneColumn" class="kanban-tasks"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MILESTONES ================= -->
+
+            <div id="milestonesPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Milestone Tracking</h1>
+                        <p>Track important project milestones and completion status.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openMilestoneModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Milestone
+                    </button>
+
+                </div>
+
+                <div id="milestonesContainer" class="milestone-grid"></div>
+
+            </div>
+
+
+            <!-- ================= TIME ================= -->
+
+            <div id="timePage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Time Tracking</h1>
+                        <p>Log working hours and monitor team productivity.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="startTimer()">
+                        <i class="fa-solid fa-play"></i>
+                        Start Timer
+                    </button>
+
+                </div>
+
+                <div class="timer-card">
+
+                    <div class="timer-circle">
+                        <span id="timerDisplay">00:00:00</span>
+                        <small>Current Session</small>
+                    </div>
+
+                    <div>
+
+                        <h2>Track your work</h2>
+
+                        <p>
+                            Record time spent on tasks and projects.
+                        </p>
+
+                        <div class="timer-actions">
+
+                            <button
+                                class="primary-btn"
+                                id="timerButton"
+                                onclick="toggleTimer()">
+
+                                <i class="fa-solid fa-play"></i>
+                                Start Timer
+
+                            </button>
+
+                            <button
+                                class="secondary-btn"
+                                onclick="logManualTime()">
+
+                                <i class="fa-solid fa-clock"></i>
+                                Manual Entry
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Time Entries</h3>
+                            <p>Recent logged hours</p>
+                        </div>
+
+                        <strong id="totalTimeHours">0 hours</strong>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Project</th>
+                                    <th>Task</th>
+                                    <th>Member</th>
+                                    <th>Hours</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="timeTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CLIENTS ================= -->
+
+            <div id="clientsPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Client Management</h1>
+                        <p>Manage client profiles and communication history.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openClientModal()">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Client
+                    </button>
+
+                </div>
+
+                <div id="clientsGrid" class="client-grid"></div>
+
+            </div>
+
+
+            <!-- ================= FILES ================= -->
+
+            <div id="filesPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>File Sharing</h1>
+                        <p>Upload and organize project documents and resources.</p>
+                    </div>
+
+                    <label class="primary-btn upload-label">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        Upload File
+                        <input
+                            type="file"
+                            id="fileInput"
+                            hidden
+                            multiple
+                            onchange="handleFileUpload(event)">
+                    </label>
+
+                </div>
+
+                <div class="storage-banner">
+
+                    <div class="storage-large-icon">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>Workspace Storage</h3>
+
+                        <p>
+                            Keep your project resources organized in one place.
+                        </p>
+
+                        <div class="large-progress">
+                            <div style="width:68%"></div>
+                        </div>
+
+                    </div>
+
+                    <strong>6.8 / 10 GB</strong>
+
+                </div>
+
+                <div id="filesGrid" class="file-grid"></div>
+
+            </div>
+
+
+            <!-- ================= TEAM ================= -->
+
+            <div id="teamPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Team Management</h1>
+                        <p>Manage team members, roles and workload.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="openTeamModal()">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Add Member
+                    </button>
+
+                </div>
+
+                <div id="teamGrid" class="team-grid"></div>
+
+            </div>
+
+
+            <!-- ================= REPORTS ================= -->
+
+            <div id="reportsPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Project Reports</h1>
+                        <p>Generate project, task and time reports.</p>
+                    </div>
+
+                    <div class="button-group">
+
+                        <button
+                            class="secondary-btn"
+                            onclick="exportCSV()">
+
+                            <i class="fa-solid fa-file-csv"></i>
+                            Export CSV
+
+                        </button>
+
+                        <button
+                            class="primary-btn"
+                            onclick="printReport()">
+
+                            <i class="fa-solid fa-file-pdf"></i>
+                            Export PDF
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="report-stats">
+
+                    <div class="report-stat">
+                        <span>Total Projects</span>
+                        <strong id="reportProjects">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Total Tasks</span>
+                        <strong id="reportTasks">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Completed Tasks</span>
+                        <strong id="reportCompleted">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Total Hours</span>
+                        <strong id="reportHours">0h</strong>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Project Performance</h3>
+                                <p>Progress by project</p>
+                            </div>
+                        </div>
+
+                        <div id="reportProjectList"></div>
+
+                    </div>
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Budget Overview</h3>
+                                <p>Project financial summary</p>
+                            </div>
+                        </div>
+
+                        <div id="budgetReport"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= TIMELINE ================= -->
+
+            <div id="timelinePage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Project Timeline</h1>
+                        <p>Visual timeline of project schedules.</p>
+                    </div>
+
+                    <select id="timelineProject" onchange="renderTimeline()"></select>
+
+                </div>
+
+                <div class="panel timeline-panel">
+
+                    <div id="timelineContainer"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CLIENT PORTAL ================= -->
+
+            <div id="communicationPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Client Communication Portal</h1>
+                        <p>Communicate with clients and manage project discussions.</p>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        onclick="simulateEmail()">
+
+                        <i class="fa-regular fa-envelope"></i>
+                        Send Notification
+
+                    </button>
+
+                </div>
+
+                <div class="communication-layout">
+
+                    <div class="panel chat-panel">
+
+                        <div class="chat-header">
+
+                            <div class="avatar blue-avatar">
+                                RK
+                            </div>
+
+                            <div>
+                                <strong>Rahul Kumar</strong>
+                                <small>Client • Online</small>
+                            </div>
+
+                            <span class="online-dot"></span>
+
+                        </div>
+
+                        <div id="chatMessages" class="chat-messages">
+
+                            <div class="message received">
+                                <span>
+                                    Hi! Could you share the latest project update?
+                                </span>
+                                <small>10:32 AM</small>
+                            </div>
+
+                            <div class="message sent">
+                                <span>
+                                    Sure! The dashboard is 85% complete.
+                                </span>
+                                <small>10:35 AM</small>
+                            </div>
+
+                        </div>
+
+                        <div class="chat-input">
+
+                            <input
+                                id="chatInput"
+                                placeholder="Type your message..."
+                                onkeydown="if(event.key==='Enter') sendMessage()">
+
+                            <button onclick="sendMessage()">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <h3>Client Information</h3>
+                                <p>Current conversation</p>
+                            </div>
+
+                        </div>
+
+                        <div class="client-info">
+
+                            <div class="big-avatar">
+                                RK
+                            </div>
+
+                            <h2>Rahul Kumar</h2>
+
+                            <p>Rahul Technologies Pvt. Ltd.</p>
+
+                            <div class="info-row">
+                                <i class="fa-regular fa-envelope"></i>
+                                rahul@example.com
+                            </div>
+
+                            <div class="info-row">
+                                <i class="fa-solid fa-phone"></i>
+                                +91 98765 43210
+                            </div>
+
+                            <div class="info-row">
+                                <i class="fa-solid fa-building"></i>
+                                Technology
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SETTINGS ================= -->
+
+            <div id="settingsPage" class="page">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Settings</h1>
+                        <p>Configure your ProjectFlow workspace.</p>
+                    </div>
+
+                </div>
+
+                <div class="settings-grid">
+
+                    <div class="panel">
+
+                        <h3>Appearance</h3>
+
+                        <div class="setting-row">
+
+                            <div>
+                                <strong>Dark Mode</strong>
+                                <small>Use a dark interface for low-light environments.</small>
+                            </div>
+
+                            <label class="switch">
+                                <input
+                                    type="checkbox"
+                                    id="darkModeSwitch"
+                                    onchange="toggleDarkMode()">
+                                <span></span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <h3>Workspace</h3>
+
+                        <div class="setting-row">
+                            <div>
+                                <strong>Workspace Name</strong>
+                                <small>ProjectFlow Workspace</small>
+                            </div>
+
+                            <button class="secondary-btn">
+                                Edit
+                            </button>
+                        </div>
+
+                        <div class="setting-row">
+                            <div>
+                                <strong>Notifications</strong>
+                                <small>Receive project activity notifications.</small>
+                            </div>
+
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="danger-btn"
+                    onclick="logout()">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= PROJECT MODAL ================= -->
+
+<div id="projectModal" class="modal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="projectModalTitle">Create Project</h2>
+                <p>Add project information below.</p>
+            </div>
+
+            <button class="modal-close" onclick="closeModal('projectModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <form id="projectForm">
+
+            <input type="hidden" id="projectId">
+
+            <div class="form-grid">
+
+                <div class="form-field full">
+                    <label>Project Name</label>
+                    <input id="projectName" required placeholder="Website Redesign">
+                </div>
+
+                <div class="form-field">
+                    <label>Client</label>
+                    <select id="projectClient"></select>
+                </div>
+
+                <div class="form-field">
+                    <label>Budget</label>
+                    <input
+                        id="projectBudget"
+                        type="number"
+                        required
+                        placeholder="50000">
+                </div>
+
+                <div class="form-field">
+                    <label>Start Date</label>
+                    <input id="projectStart" type="date" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Deadline</label>
+                    <input id="projectDeadline" type="date" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Status</label>
+                    <select id="projectStatus">
+                        <option>Planning</option>
+                        <option>In Progress</option>
+                        <option>On Hold</option>
+                        <option>Completed</option>
+                        <option>Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label>Progress %</label>
+                    <input
+                        id="projectProgress"
+                        type="number"
+                        min="0"
+                        max="100"
+                        value="0">
+                </div>
+
+                <div class="form-field full">
+                    <label>Description</label>
+                    <textarea
+                        id="projectDescription"
+                        rows="4"
+                        placeholder="Describe the project..."></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeModal('projectModal')">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Save Project
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TASK MODAL ================= -->
+
+<div id="taskModal" class="modal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Create Task</h2>
+                <p>Assign and organize your work.</p>
+            </div>
+
+            <button class="modal-close" onclick="closeModal('taskModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <form id="taskForm">
+
+            <input type="hidden" id="taskId">
+
+            <div class="form-grid">
+
+                <div class="form-field full">
+                    <label>Task Name</label>
+                    <input id="taskName" required placeholder="Design homepage">
+                </div>
+
+                <div class="form-field">
+                    <label>Project</label>
+                    <select id="taskProject"></select>
+                </div>
+
+                <div class="form-field">
+                    <label>Assignee</label>
+                    <select id="taskAssignee"></select>
+                </div>
+
+                <div class="form-field">
+                    <label>Priority</label>
+                    <select id="taskPriority">
+                        <option>Critical</option>
+                        <option>High</option>
+                        <option selected>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label>Deadline</label>
+                    <input id="taskDeadline" type="date">
+                </div>
+
+                <div class="form-field">
+                    <label>Status</label>
+                    <select id="taskStatus">
+                        <option>To Do</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-field full">
+                    <label>Description</label>
+                    <textarea id="taskDescription" rows="4"></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeModal('taskModal')">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Save Task
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CLIENT MODAL ================= -->
+
+<div id="clientModal" class="modal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Client</h2>
+                <p>Create a new client profile.</p>
+            </div>
+
+            <button class="modal-close" onclick="closeModal('clientModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <form id="clientForm">
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Client Name</label>
+                    <input id="clientName" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Company</label>
+                    <input id="clientCompany" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Email</label>
+                    <input id="clientEmail" type="email" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Phone</label>
+                    <input id="clientPhone">
+                </div>
+
+                <div class="form-field full">
+                    <label>Industry</label>
+                    <input id="clientIndustry" placeholder="Technology">
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeModal('clientModal')">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Add Client
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TEAM MODAL ================= -->
+
+<div id="teamModal" class="modal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Team Member</h2>
+                <p>Add a new member to your workspace.</p>
+            </div>
+
+            <button class="modal-close" onclick="closeModal('teamModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <form id="teamForm">
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Name</label>
+                    <input id="teamName" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Email</label>
+                    <input id="teamEmail" type="email" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Role</label>
+                    <select id="teamRole">
+                        <option>Project Manager</option>
+                        <option>Developer</option>
+                        <option>Designer</option>
+                        <option>QA</option>
+                        <option>Analyst</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeModal('teamModal')">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Add Member
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MILESTONE MODAL ================= -->
+
+<div id="milestoneModal" class="modal">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Milestone</h2>
+                <p>Create an important project milestone.</p>
+            </div>
+
+            <button class="modal-close" onclick="closeModal('milestoneModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <form id="milestoneForm">
+
+            <div class="form-grid">
+
+                <div class="form-field full">
+                    <label>Milestone Name</label>
+                    <input id="milestoneName" required>
+                </div>
+
+                <div class="form-field">
+                    <label>Project</label>
+                    <select id="milestoneProject"></select>
+                </div>
+
+                <div class="form-field">
+                    <label>Due Date</label>
+                    <input id="milestoneDate" type="date">
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="closeModal('milestoneModal')">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Add Milestone
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PROFILE MODAL ================= -->
+
+<div id="profileModal" class="modal">
+
+    <div class="modal-card profile-card">
+
+        <button class="modal-close" onclick="closeModal('profileModal')">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="profile-avatar">
+            A
+        </div>
+
+        <h2 id="profileName">Admin User</h2>
+
+        <p id="profileRole">Project Manager</p>
+
+        <button class="primary-btn full-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div id="toast" class="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Success
+    </span>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
